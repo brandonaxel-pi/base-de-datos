@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Modificar</title>
+
+  <script type="module" src="lib/js/consumeJson.js"></script>
+  <script type="module" src="lib/js/submitForm.js"></script>
+  <script type="module" src="lib/js/muestraObjeto.js"></script>
+  <script type="module" src="lib/js/muestraError.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f6f9;
+    }
+
+    form {
+      background-color: #ffffff;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 1.8em;
+      color: #333;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    p {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-top: 5px;
+      font-size: 1em;
+    }
+
+    input[name="nombre"],
+    input[name="marca"],
+    input[name="modelo"],
+    input[name="tipo"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-top: 5px;
+      font-size: 1em;
+    }
+
+    .required-note {
+      font-size: 0.9em;
+      color: #999;
+      text-align: right;
+    }
+
+    button[type="submit"],
+    button[type="button"] {
+      width: 48%;
+      padding: 10px;
+      font-size: 1em;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button[type="submit"] {
+      background-color: #4CAF50;
+      margin-right: 4%;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    button[type="button"] {
+      background-color: #f44336;
+    }
+
+    button[type="button"]:hover {
+      background-color: #d32f2f;
+    }
+
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  <script>
+    const params = new URL(location.href).searchParams;
+  </script>
+</head>
+
+<body onload="if (params.size > 0) {
+   consumeJson('srv/avion.php?' + params)
+    .then(respuesta => muestraObjeto(forma, respuesta.body))
+    .catch(muestraError)
+  }">
+
+  <form id="forma" onsubmit="submitForm('srv/avion-modifica.php', event)
+    .then(respuesta => location.href = 'index.html')
+    .catch(muestraError)">
+
+    <h1>Modificar</h1>
+
+    <p><a href="index.html">Cancelar</a></p>
+
+    <input name="id" type="hidden">
+
+    <p>
+      <label>Nombre *</label>
+      <input name="nombre" type="text" value="Cargando&hellip;">
+    </p>
+
+    <p>
+      <label>Marca *</label>
+      <input name="marca" type="text" value="Cargando&hellip;">
+    </p>
+
+    <p>
+      <label>Modelo *</label>
+      <input name="modelo" type="text" value="Cargando&hellip;">
+    </p>
+
+    <p>
+      <label>Tipo *</label>
+      <input name="tipo" type="text" value="Cargando&hellip;">
+    </p>
+
+    <p class="required-note">* Obligatorio</p>
+
+    <p>
+      <button type="submit">Guardar</button>
+      <button type="button" onclick="
+        if (params.size > 0 && confirm('Confirma la eliminación')) {
+          consumeJson('srv/avion-elimina.php?' + params)
+            .then(() => location.href = 'index.html')
+            .catch(muestraError)
+        }">
+        Eliminar
+      </button>
+    </p>
+
+  </form>
+
+</body>
+
+</html>

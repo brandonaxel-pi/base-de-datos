@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Agregar</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="lib/js/submitForm.js"></script>
+  <script type="module" src="lib/js/muestraError.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f3f4f6;
+    }
+
+    form {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1em;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .required-note {
+      font-size: 0.9em;
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form onsubmit="submitForm('srv/avion-agrega.php', event)
+      .then(modelo => location.href = 'index.html')
+      .catch(muestraError)">
+
+    <h1>Agregar</h1>
+
+    <p><a href="index.html">Cancelar</a></p>
+
+    <p>
+      <label>
+        Nombre *
+        <input name="nombre" required>
+      </label>
+    </p>
+
+    <p>
+      <label>
+        Marca *
+        <input name="marca" required>
+      </label>
+    </p>
+
+    <p>
+      <label>
+        Modelo *
+        <input name="modelo" required>
+      </label>
+    </p>
+
+    <p>
+      <label>
+        Tipo *
+        <input name="tipo" required>
+      </label>
+    </p>
+
+    <p class="required-note">* Obligatorio</p>
+
+    <p><button type="submit">Agregar</button></p>
+
+  </form>
+
+</body>
+
+</html>
